@@ -8,11 +8,15 @@ public class PlayerController : MonoBehaviour
     public float turnSpeed = 60;
     private float horizontalInput;
     private float verticalInput;
+    private Rigidbody playerRb;
+    public float jumpForce = 5;
+
+    private bool isOnGround = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,5 +27,18 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime);
         transform.Rotate(Vector3.up * horizontalInput * turnSpeed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
+        }
+
+        
+    }
+
+    private void OnCollisionEnter (Collision collision)
+    {
+        if 
     }
 }
